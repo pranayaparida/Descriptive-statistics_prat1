@@ -1,0 +1,102 @@
+---
+title: "Descriptive statistics part-1"
+author: "P K Parida"
+date: "2023-06-04"
+output: 
+  html_document:
+   code_folding: hide
+---
+---
+Dear Friends, 
+
+Today we will perform some basic descriptive statistics in R from the given ecological data.
+
+# Reading the CSV file  
+```{r}
+
+#set working directory ( go to session,click on set working directory, choose directory in which your csv file is located)
+# codes taken and modifed from https://statsandr.com/blog/descriptive-statistics-in-r/#introduction
+
+data =read.csv(file = "water_chemistry.csv", header = TRUE)
+head(data)
+
+
+
+```
+
+## Estimation of mean
+```{r}
+#Mean of a coloumn/ head can be estimated by the following code, mean is 
+mean(data$Water.temperature)
+
+```
+
+## Estimation of Median 
+```{r}
+median(data$Water.temperature)
+```
+
+## Estimation of Mode
+```{r}
+# Base R does not have a standard inbuilt function to calculate mode, So, a function needs to be created for mode (the codes were taken and modified from tutorials point.com). 
+
+mode=function(X){uniqX=unique(X)
+  uniqX[which.max(tabulate(match(X, uniqX)))]}
+
+#define the character/ coloum head which needs to be calculated for mode
+
+X =data$Water.temperature
+
+mode(X)
+mode(data$Water.temperature)
+
+```
+
+## Estimation of standard deviation
+```{r}
+sd(data$Water.temperature)
+```
+
+## Estimation of variance
+
+```{r}
+var(data$Water.temperature)
+```
+Summary 
+```{r}
+#if you want to know the summary of the data
+summary(data)
+# if you want to know the summary of the data without the 1st coloumn, i.e sit numbers
+summary(data[, -1])
+# in summary you will get ( min, Max, Mean, median, 1st quartile, 3rd quartile, which is all the elements of boxplot including mean, from min and Max we will get the  range of the data)
+
+# if you donot want teh 1st coloumn and last coloumn (14th coloumn) in the summary, then 
+summary(data[, - c(1, 14)])
+
+#if you want the summary by year and without 1st coloumn
+by(data[, -1], data$year, summary)
+
+#Now, if you want to remove"'year' and 'site'" from the summary and also want to classify by year
+by(data[,  - c(1, 14)], data$year, summary)
+```
+
+# Length Frequency estimation from length data
+
+```{r}
+length=c(12,15,20, 21,25,31,34,35,37,40, 41,46,51, 72)
+
+breaks= seq(1,61, by=10)
+
+breaks= c(1,11, 21, 31, 41, 51,61, 71, 81) 
+
+length.cut=cut(length, breaks, right=FALSE)
+
+length.frequency = table(length.cut)
+
+length.frequency
+```
+
+```{r}
+sessionInfo()
+```
+
