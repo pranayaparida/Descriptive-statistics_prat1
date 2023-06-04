@@ -1,4 +1,4 @@
-# Descriptive-statistics_prat1 in R 
+# Descriptive-statistics_part-1 in R 
 -   <a href="#reading-the-csv-file" id="toc-reading-the-csv-file">Reading
     the CSV file</a>
     -   <a href="#estimation-of-mean" id="toc-estimation-of-mean">Estimation of
